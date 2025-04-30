@@ -1,0 +1,28 @@
+# Object files
+*.o
+*.obj
+
+# Executables and binaries
+*.exe
+*.out
+*.app
+
+# Static and dynamic libs
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+# Temporary/editor swap files
+*~
+*.swp
+*.tmp
+*.bak
+
+# Build directories (if using build systems like CMake or Make)
+build/
+CMakeFiles/
+CMakeCache.txt
+Makefile
+cmake_install.cmake
