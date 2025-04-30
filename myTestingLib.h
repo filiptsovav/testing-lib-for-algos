@@ -3,30 +3,37 @@
 
 #include <string>
 #include <vector>
+#include <concepts>
 
 namespace Testing {
 namespace Generators {
-    //TODO убедиться что не сломается из-за типов
     template <typename T>
     std::vector<T> generateVectorWithDuplicates(int size, T min, T max);
     template <typename T>
-    std::vector<T> generateSortedVectorWithDupicates(int size, T min, T max);
+    std::vector<T> generateSortedVectorWithDuplicates(int size, T min, T max);
     template <typename T>
     std::vector<T> generateVectorWithoutDuplicates(int size, T min, T max);
     template <typename T>
-    std::vector<T> generateSortedVectorWithoutDupicates(int size, T min, T max);
+    std::vector<T> generateSortedVectorWithoutDuplicates(int size, T min, T max);
 
-// struct BSTNode {
-//     int value;
-//     BSTNode* left;
-//     BSTNode* right;
-// };
 
-// BSTNode* generateBST(int size);
-// BSTNode* generateBalancedBST(int size);
-// BSTNode* generateFullBST(int size);
+template<typename Node>
+concept BSTNodeConcept = requires(Node* node, int val) {
+    { node->getValue() } -> std::convertible_to<int&>;
+    { node->getLeft() } -> std::same_as<Node*&>;
+    { node->getRight() } -> std::same_as<Node*&>;
+    { Node(val) } -> std::same_as<Node>;
+};
 
-// BSTNode* buildBST(std::vector<int> values);
+template <BSTNodeConcept Node>
+Node* generateBST(int size, int min, int max);
+template <BSTNodeConcept Node>
+Node* generateBalancedBST(int size, int min, int max);
+template <BSTNodeConcept Node>
+Node* generateFullBST(int size, int min, int max); //todo реализовать
+template <BSTNodeConcept Node>
+Node* buildBST(std::vector<int>& values);
+
 
 std::string generateString(int lenght);
 std::string generateStringWithSmallLatinLetters(int length);
@@ -36,4 +43,6 @@ std::string generateStringWithLatinLetters(int length);
 namespace Benchmarks {}
 }
 
-#endif MYTESTINGLIB_H
+#include "myTestingLib.tpp"
+
+#endif
